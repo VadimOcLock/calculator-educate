@@ -15,7 +15,7 @@ export default {
 .wrapper
   height: 100vh
   width: 100vw
-  background: linear-gradient(#657de8, #744ba1)
+  background: linear-gradient(to top, #d595ee, #ffbcb7, #f0eee9)
   display: flex
 
 

@@ -14,6 +14,10 @@ export default {
 <style scoped lang="sass">
 
 .calc__container
-  margin: 100px auto
+  width: 100vw
+  height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
 
 </style>

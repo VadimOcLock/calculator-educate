@@ -1,9 +1,10 @@
 <template>
   <div class="container">
     <div class="display">{{ current || 0 }}</div>
-    <div @click="clear()" class="btn">C</div>
-    <div @click="sign()" class="btn">+/-</div>
-    <div @click="percent()" class="btn">%</div>
+    <div class="line"></div>
+    <div @click="clear()" class="btn operator">C</div>
+    <div @click="sign()" class="btn operator">+/-</div>
+    <div @click="percent()" class="btn operator">%</div>
     <div @click="divide()" class="btn operator">&divide;</div>
     <div @click="append(7)" class="btn">7</div>
     <div @click="append(8)" class="btn">8</div>
@@ -42,7 +43,8 @@ export default {
           this.current.slice(1) : `-${this.current}`
     },
     percent: function () {
-      this.current = `${ parseFloat(this.current) / 100 }`
+      if (this.current !== '')
+        this.current = `${ parseFloat(this.current) / 100 }`
     },
     append: function (number) {
       if(this.operatorClicked) {
@@ -94,23 +96,35 @@ export default {
   font-weight: 400
 
 .container
-  font-size: 40px
+  font-size: 36px
   display: grid
   grid-template-columns: repeat(4, 1fr)
   grid-auto-columns: minmax(50px, auto)
   grid-gap: 20px
   text-align: center
   background-color: #202125
-  padding: 20px
+  padding: 25px
   border-radius: 20px
   color: #f7f7f9
+  box-shadow: 0 0 10px #000
 
 .display
   grid-column: 1/5
   text-align: right
+  font-size: 45px
+
+.line
+  grid-column: 1/5
+  background: linear-gradient(to right, #3f51b5, #dd43b2, #d29e8f)
+  height: 1px
 
 .zero
   grid-column: 1/3
+  transition-duration: 0.5s
+
+.zero:hover
+  background-color: #4d4e52
+  box-shadow: 0 0 10px #fff
 
 .btn
   padding: 15px
@@ -118,7 +132,13 @@ export default {
   user-select: none
   cursor: pointer
 
+.btn:hover
+  text-shadow: 0 0 10px #808080
+
 .operator
   background-color: #4d4e52
+
+.operator:hover
+  box-shadow: 0 0 10px #fff
 
 </style>
