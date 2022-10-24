@@ -4,9 +4,9 @@ import CalcView from "@/views/CalcView"
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "calc",
+    component: CalcView
   },
   {
     path: '/about',
@@ -18,11 +18,7 @@ const routes = [
       return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     }
   },
-  {
-    path: "/calc",
-    name: "calc",
-    component: CalcView
-  }
+
 ]
 
 const router = createRouter({

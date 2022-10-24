@@ -1,30 +1,25 @@
 <template>
   <div class="container">
-    <div class="item input">
-      <form name="form">
-        <input type="text" name="textView" readonly>
-      </form>
-    </div>
-    <div class="item clean">C</div>
-    <div class="item back">&larr;</div>
-    <div class="item" @click="insert('+')">+</div>
-    <div class="item" @click="insert('-')">-</div>
-    <div class="item" @click="insert('*')">&times;</div>
-    <div class="item" @click="insert('/')">&divide;</div>
-    <div class="item">7</div>
-    <div class="item">8</div>
-    <div class="item">9</div>
-    <div class="item">(</div>
-    <div class="item">4</div>
-    <div class="item">5</div>
-    <div class="item">6</div>
-    <div class="item">)</div>
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item equal">=</div>
-    <div class="item zero">0</div>
-    <div class="item">.</div>
+    <div class="display">234234</div>
+    <div class="btn">C</div>
+    <div class="btn">+/-</div>
+    <div class="btn">%</div>
+    <div class="btn operator">&divide;</div>
+    <div class="btn">7</div>
+    <div class="btn">8</div>
+    <div class="btn">9</div>
+    <div class="btn operator">&times;</div>
+    <div class="btn">4</div>
+    <div class="btn">5</div>
+    <div class="btn">6</div>
+    <div class="btn operator">-</div>
+    <div class="btn">1</div>
+    <div class="btn">2</div>
+    <div class="btn">3</div>
+    <div class="btn operator">+</div>
+    <div class="btn zero">0</div>
+    <div class="btn">.</div>
+    <div class="btn operator">=</div>
   </div>
 </template>
 
@@ -32,14 +27,12 @@
 export default {
   data() {
     return {
+      result: ""
 
     }
   },
   methods: {
-    insert: function (num) {
-      document.form.textview.value += num
-      console.log("insert function")
-    }
+
   }
 }
 </script>
@@ -47,56 +40,34 @@ export default {
 <style scoped lang="sass">
 
 *
-  user-select: none
+  font-family: 'Montserrat',sans-serif
+  transition: 0.3s all
+  font-weight: 400
 
 .container
+  font-size: 40px
   display: grid
-  grid-template-columns: 1fr 1fr 1fr 1fr
-  grid-gap: 4px
-  background-color: #333333
-  padding: 4px
-  border-radius: 9px
-  max-width: 360px
-  box-shadow: 0 0 10px #000000
-
-.item
-  background-color: #3c3c3c
-  color: #fdfdfd
+  grid-template-columns: repeat(4, 1fr)
+  grid-auto-columns: minmax(50px, auto)
+  grid-gap: 20px
+  text-align: center
+  background-color: #202125
   padding: 20px
-  display: flex
-  justify-content: center
-  align-items: center
-  cursor: pointer
-  font-weight: bold
+  border-radius: 20px
+  color: #f7f7f9
 
-form
-  max-width: 100%
-
-input
-  width: 100%
-  height: 60px
-  border: none
-  font-size: 30px
-  outline: none
+.display
+  grid-column: 1/5
   text-align: right
-  background: #333333
-  color: #fdfdfd
-
-.input
-  grid-column: 1/-1
-  padding: 0
-
-.clean
-  grid-column: 1/3
-
-.back
-  grid-column: 3/-1
-
-.equal
-  grid-column: 4
-  grid-row: 6/8
 
 .zero
   grid-column: 1/3
+
+.btn
+  padding: 15px
+  border-radius: 50px
+
+.operator
+  background-color: #4d4e52
 
 </style>

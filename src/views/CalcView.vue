@@ -14,6 +14,6 @@ export default {
 <style scoped lang="sass">
 
 .calc__container
-  margin: 150px auto
+  margin: 100px auto
 
 </style>
