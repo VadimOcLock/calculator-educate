@@ -36,10 +36,10 @@ export default {
   },
   methods: {
     clear: function () {
-      this.current = ""
+      this.current = ''
     },
     sign: function () {
-      this.current = this.current.charAt(0) === "-" ?
+      this.current = this.current.charAt(0) === '-' ?
           this.current.slice(1) : `-${this.current}`
     },
     percent: function () {
@@ -48,7 +48,7 @@ export default {
     },
     append: function (number) {
       if(this.operatorClicked) {
-        this.current = ""
+        this.current = ''
         this.operatorClicked = false
       }
       this.current += number
