@@ -1,5 +1,13 @@
 <template>
   <div class="container">
+    <div class="theme">
+      <div class="theme__btn">
+        <div class="toggle-container">
+          <input @change="changeTheme()" type="checkbox" id="switch" name="theme" />
+          <label for="switch">Toggle</label>
+        </div>
+      </div>
+    </div>
     <div class="display">{{ current || 0 }}</div>
     <div class="line"></div>
     <div @click="clear()" class="btn operator">C</div>
@@ -83,12 +91,32 @@ export default {
           parseFloat(this.current)
       ) }`
       this.previous = null
+    },
+    changeTheme: function () {
+      const checkbox = document.querySelector('input[name=theme]');
+
+      checkbox.checked ?
+          document.documentElement.setAttribute('data-theme', 'dark') :
+          document.documentElement.setAttribute('data-theme', 'light')
+
+      // console.log(document.documentElement)
     }
   }
 }
 </script>
 
 <style scoped lang="sass">
+
+$bg-color: #202125
+$text-color: #f7f7f9
+
+html[data-theme='dark']
+  $bg-color: #fdfdfd
+  $text-color: #272828
+
+html[data-theme='light']
+  $bg-color: #202125
+  $text-color: #f7f7f9
 
 *
   font-family: 'Montserrat',sans-serif
@@ -102,11 +130,62 @@ export default {
   grid-auto-columns: minmax(50px, auto)
   grid-gap: 20px
   text-align: center
-  background-color: #202125
+  background-color: $bg-color
   padding: 25px
   border-radius: 20px
-  color: #f7f7f9
+  color: $text-color
   box-shadow: 0 0 10px #000
+
+.theme
+  grid-column: 1/5
+  display: flex
+  align-items: start
+  justify-content: start
+
+input[type=checkbox]
+  height: 0
+  width: 0
+  visibility: hidden
+
+label
+  cursor: pointer
+  text-indent: -9999px
+  width: 52px
+  height: 27px
+  background: grey
+  float: right
+  border-radius: 100px
+  position: relative
+
+label:after
+  content: ''
+  position: absolute
+  top: 3px
+  left: 3px
+  width: 20px
+  height: 20px
+  background: #fff
+  border-radius: 90px
+  transition: 0.3s
+
+
+input:checked + label
+  background: linear-gradient(to right, #3f51b5, #dd43b2, #d29e8f)
+
+
+input:checked + label:after
+  left: calc(100% - 5px)
+  transform: translateX(-100%)
+
+
+label:active:after
+  width: 45px
+
+
+.theme__btn
+  user-select: none
+  cursor: pointer
+
 
 .display
   grid-column: 1/5
@@ -140,5 +219,7 @@ export default {
 
 .operator:hover
   box-shadow: 0 0 10px #fff
+
+
 
 </style>
