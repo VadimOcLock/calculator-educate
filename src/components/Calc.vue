@@ -1,34 +1,97 @@
 <template>
-  <div class="container">
+  <div :class="[darkMode ? 'dark' : 'light']" class="container">
     <div class="theme">
       <div class="theme__btn">
         <div class="toggle-container">
-          <input @change="changeTheme()" type="checkbox" id="switch" name="theme" />
+          <input id="switch" name="theme" type="checkbox" @change="changeTheme()"/>
           <label for="switch">Toggle</label>
         </div>
       </div>
     </div>
     <div class="display">{{ current || 0 }}</div>
     <div class="line"></div>
-    <div @click="clear()" class="btn operator">C</div>
-    <div @click="sign()" class="btn operator">+/-</div>
-    <div @click="percent()" class="btn operator">%</div>
-    <div @click="divide()" class="btn operator">&divide;</div>
-    <div @click="append(7)" class="btn">7</div>
-    <div @click="append(8)" class="btn">8</div>
-    <div @click="append(9)" class="btn">9</div>
-    <div @click="times()" class="btn operator">&times;</div>
-    <div @click="append(4)" class="btn">4</div>
-    <div @click="append(5)" class="btn">5</div>
-    <div @click="append(6)" class="btn">6</div>
-    <div @click="minus()" class="btn operator">-</div>
-    <div @click="append(1)" class="btn">1</div>
-    <div @click="append(2)" class="btn">2</div>
-    <div @click="append(3)" class="btn">3</div>
-    <div @click="add()" class="btn operator">+</div>
-    <div @click="append(0)" class="btn zero">0</div>
-    <div @click="dot()" class="btn">.</div>
-    <div @click="equal()" class="btn operator">=</div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="clear()">C
+    </div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="sign()">+/-
+    </div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="percent()">%
+    </div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="divide()">&divide;
+    </div>
+    <div class="btn" @click="append(7)">7</div>
+    <div class="btn" @click="append(8)">8</div>
+    <div class="btn" @click="append(9)">9</div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="times()">&times;
+    </div>
+    <div class="btn" @click="append(4)">4</div>
+    <div class="btn" @click="append(5)">5</div>
+    <div class="btn" @click="append(6)">6</div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="minus()">-
+    </div>
+    <div class="btn" @click="append(1)">1</div>
+    <div class="btn" @click="append(2)">2</div>
+    <div class="btn" @click="append(3)">3</div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="add()">+
+    </div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#202125' : '#fdfdfd',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn zero"
+         @click="append(0)">0
+    </div>
+    <div class="btn" @click="dot()">.</div>
+    <div :style="
+          {
+            backgroundColor: darkMode ? '#4d4e52' : '#f4f5f8',
+            color: darkMode ? '#f7f7f9' : '#484848',
+          }"
+         class="btn operator"
+         @click="equal()">=
+    </div>
   </div>
 </template>
 
@@ -39,7 +102,8 @@ export default {
       current: '',
       previous: null,
       operator: null,
-      operatorClicked: false
+      operatorClicked: false,
+      darkMode: true
     }
   },
   methods: {
@@ -52,10 +116,10 @@ export default {
     },
     percent: function () {
       if (this.current !== '')
-        this.current = `${ parseFloat(this.current) / 100 }`
+        this.current = `${parseFloat(this.current) / 100}`
     },
     append: function (number) {
-      if(this.operatorClicked) {
+      if (this.operatorClicked) {
         this.current = ''
         this.operatorClicked = false
       }
@@ -86,40 +150,39 @@ export default {
       this.setPrevious()
     },
     equal: function () {
-      this.current = `${ this.operator(
+      this.current = `${this.operator(
           parseFloat(this.previous),
           parseFloat(this.current)
-      ) }`
+      )}`
       this.previous = null
     },
     changeTheme: function () {
-      const checkbox = document.querySelector('input[name=theme]');
-
-      checkbox.checked ?
-          document.documentElement.setAttribute('data-theme', 'dark') :
-          document.documentElement.setAttribute('data-theme', 'light')
-
-      // console.log(document.documentElement)
+      this.darkMode = !this.darkMode
     }
   }
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass" scoped>
 
 $bg-color: #202125
 $text-color: #f7f7f9
+$light-bg-color: #fdfdfd
+$dark-text-color: #484848
 
-html[data-theme='dark']
-  $bg-color: #fdfdfd
-  $text-color: #272828
+.light
+  background-color: $light-bg-color
+  color: $dark-text-color
+  box-shadow: 0 0 20px #8b888b
 
-html[data-theme='light']
-  $bg-color: #202125
-  $text-color: #f7f7f9
+.dark
+  background-color: $bg-color
+  color: $text-color
+  box-shadow: 0 0 20px #000000
+
 
 *
-  font-family: 'Montserrat',sans-serif
+  font-family: 'Montserrat', sans-serif
   transition: 0.3s all
   font-weight: 400
 
@@ -130,11 +193,8 @@ html[data-theme='light']
   grid-auto-columns: minmax(50px, auto)
   grid-gap: 20px
   text-align: center
-  background-color: $bg-color
   padding: 25px
   border-radius: 20px
-  color: $text-color
-  box-shadow: 0 0 10px #000
 
 .theme
   grid-column: 1/5
@@ -216,10 +276,9 @@ label:active:after
 
 .operator
   background-color: #4d4e52
+  font-size: 34px
 
 .operator:hover
   box-shadow: 0 0 10px #fff
-
-
 
 </style>
